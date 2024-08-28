@@ -1,0 +1,67 @@
+<div id="og-address-form" class="og-form-left w-50 p-4">
+    <form action="{%url 'account:set_user_address' %}"  method="post">
+    <input type="hidden" id="user_form_id" name="user_form_id">
+    {% csrf_token %} 
+    <div class="form-group">
+        <p class="og-form-title">First Name</p>
+        {{addressform.first_name}}
+    </div>
+    <div class="form-group">
+        <p class="og-form-title">Last Name</p>
+        {{addressform.last_name}}
+    </div>
+    <div class="form-group">
+        <p class="og-form-title">Mobile Number</p>
+        {{addressform.phone}}
+    </div>
+    
+    <div class="form-group">
+        <p class="og-form-title">Country</p>
+        {{addressform.country}}
+    </div>
+    <div class="form-group">
+        <p class="og-form-title">Area</p>
+        
+    </div>
+</div>
+<div class="og-form-right w-50 p-4">
+<div class="form-group">
+    <p class="og-form-title">Address</p>
+    {{addressform.address_line_1}}
+</div>
+<div class="form-group">
+    <p class="og-form-title">Landmark(Optional)</p>
+    {{addressform.address_line_2}}
+</div>
+
+<div class="og-form-addresstag">
+    <p class="og-form-addresstag-title">select a label for effective delivery:</p>
+</div>
+<div class="og-form-addresstag-content d-flex justify-content-between m-2">
+                                                        
+    {%for x in addressform.title%}
+    <div class="og-form-addresstag">
+            {{x}}
+    </div>
+    {%endfor%}
+                                            
+</div>
+<div class="og-form-default p-4">
+    <p class="og-form-default-title">Default Address (Optional)</p>
+    <div class="og-form-content">
+            <div class="form-check">
+            {{addressform.ship_default}}
+            <label class="form-check-label" for="ship_default">
+                Default delivery address
+            </label>
+            </div>
+            <div class="form-check">
+            {{addressform.bill_default}}
+            <label class="form-check-label" for="bill_default">
+                Default billing address
+            </label>
+            </div>
+            <p class="class-og-form-title">Your existing default address setting will be replaced if you make some changes here.</p>
+    </div>
+</div>
+</div>

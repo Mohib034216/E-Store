@@ -1,0 +1,22 @@
+{% for pro in products %}
+                 
+<div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="product__item">
+        <div class="product__item__pic set-bg" data-setbg="">
+        <a href="{% url 'detailproduct' pro.slug %}"><img src="{{pro.pro_image.url}}" alt=""></a>
+        <a href="{{ pro.get_absolute_url}}"><img src="{{pro.image.url}}" alt=""></a>
+            <ul class="product__item__pic__hover">
+                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                <li><a href="{% url 'detailproduct' pro.slug %}"><i class="fa fa-shopping-cart"></i></a></li>
+            </ul>
+        </div>
+        <div class="product__item__text">
+            <h6><a href="{% url 'detailproduct' pro.slug %}">  {{pro.title|truncatechars:65 }} </a></h6>
+            {% comment %} <h5> {{pro.price}} <span ><del>{{pro.retail_price}}</del></span></h5> {% endcomment %}
+            <h5> {{pro.price}} </h5>
+            
+        </div>
+    </div>
+</div>
+{% endfor %}

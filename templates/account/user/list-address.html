@@ -1,0 +1,110 @@
+{% load static %}
+
+{% if shipping %}
+    <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">
+        My Delivery Addresses
+      
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+        <div class="modal-body">
+            
+                <div class="og-address-book-card-box">
+                 
+                        {%for address in  shipping %}
+                            <div class="og-address-book-card"> 
+                                <div class="og-address-book-card-name">
+                                    {{address.first_name}} {{address.last_name}}
+                                    <input type="hidden" id="form_address_id" value="{{address.id}}" name="form_address_id">
+                                    <button value="{{address.id}}"   class="account__details--footer__btn  user-address-edit" type="button">Edit</button>
+                                </div>
+                                <div class="og-address-book-card-phone">
+                                    {{address.phone}}
+                                </div>
+                                <div class="og-address-book-card-address">
+                                    {{address.address_line_1}}
+                                </div>
+                                <div class="og-address-book-card-tags">
+                                    <span class="og-address-book-card-tag"> {{address.get_title_display}} </span>
+                                    {% if  address.bill_default == True and address.ship_default == True %}
+                                    <span class="og-address-book-card-tag-default">  Default Billing Address</span>
+                                    <span class="og-address-book-card-tag-default">  Default Shipping Address</span>
+                                    {%elif  address.bill_default == True  %}
+                                    <span class="og-address-book-card-tag-default">  Default Billing Address</span>
+                                    {%elif address.ship_default == True  %}
+                                    <span class="og-address-book-card-tag-default">  Default Shipping Address</span>
+                                    {% endif %}
+                                </div>
+                            </div>  
+                        {%endfor%}
+                      
+                </div>
+            
+        </div>
+    
+    <div class="modal-footer">
+        <span id="og-add-address-btn"  class="btn btn-success ">Add New Address  </span>
+        <span id="ship-address-confirm-btn" data-dismiss="modal" class="btn btn-"> Confirm</span>
+    </div>
+{% elif billing %}
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">
+      
+          My Billing Addresses
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+        <div class="modal-body">
+            
+                <div class="og-address-book-card-box">
+                    
+                    {%for address in  billing %}
+                    <div class="og-address-book-card"> 
+                        <div class="og-address-book-card-name">
+                            {{address.first_name}} {{address.last_name}}
+                            <input type="hidden" id="form_address_id" value="{{address.id}}" name="form_address_id">
+                            <button value="{{address.id}}"  class="account__details--footer__btn  user-address-edit" type="button">Edit</button>
+                        </div>
+                        <div class="og-address-book-card-phone">
+                            {{address.phone}}
+                        </div>
+                        <div class="og-address-book-card-address">
+                            {{address.address_line_1}}
+                        </div>
+                        <div class="og-address-book-card-tags">
+                            <span class="og-address-book-card-tag"> {{address.get_title_display}} </span>
+                            {% if  address.bill_default == True and address.ship_default == True %}
+                            <span class="og-address-book-card-tag-default">  Default Billing Address</span>
+                            <span class="og-address-book-card-tag-default">  Default Shipping Address</span>
+                            {%elif  address.bill_default == True  %}
+                            <span class="og-address-book-card-tag-default">  Default Billing Address</span>
+                            {%elif address.ship_default == True  %}
+                            <span class="og-address-book-card-tag-default">  Default Shipping Address</span>
+                            {% endif %}
+                        </div>
+                    </div>  
+                    {%endfor%}
+                   
+                </div>
+            
+        </div>
+    
+    <div class="modal-footer">
+        <span id="og-add-address-btn"  class="btn btn-success ">Add New Address  </span>
+        <span id="bill-address-confirm-btn" data-dismiss="moda" class="btn btn-"> Confirm</span>
+    </div>
+
+
+
+
+{% endif%}
+
+
+<script src="{% static 'js/prouct_detail.js'%}"></script>

@@ -1,0 +1,37 @@
+<div class="product__details__pic__item">
+    {% for p_imgs in variation_images %}
+    <img class="product__details__pic__item--large"
+        {% comment %} src="{%static 'img/product/details/product-details-1.jpg' %}" alt=""> {% endcomment %}
+        {% comment %} src="{{variation.first.product.image.url}}" alt=""> {% endcomment %}
+        src="{{p_imgs.image.url}}" alt="">
+    {% endfor %}
+</div>
+<div class="product__details__pic__slider owl-carousel">
+    {% for  p_imgs in variation_images  %}
+    <img data-imgbigurl="{{p_imgs.image.url}}"
+        src="{{p_imgs.image.url}}" alt="">
+    {% comment %} <img data-imgbigurl="{%static 'img/product/details/product-details-3.jpg' %}"
+        src="{%static 'img/product/details/thumb-2.jpg' %}" alt="">
+    <img data-imgbigurl="{%static 'img/product/details/product-details-5.jpg' %}"
+        src="{%static 'img/product/details/thumb-3.jpg' %}" alt="">
+    <img data-imgbigurl="{%static 'img/product/details/product-details-4.jpg' %}"
+        src="{%static 'img/product/details/thumb-4.jpg' %}" alt=""> {% endcomment %}
+        {% endfor %}
+</div>
+
+<label for="size" class="form-label m-2">Size:</label><br>
+
+<select class="form-select" id="size" name="size">
+        {% for  sz in size %}
+        <option  value="{{sz.id}}">{{sz.title}}</option>
+         {% endfor %}
+</select> 
+
+
+
+
+
+<script>
+
+    $(document).ready(function() { $('select').niceSelect();});
+</script>

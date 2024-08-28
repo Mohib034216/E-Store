@@ -1,0 +1,36 @@
+{% if  shipping  %}
+        <form name="og-checkoutform" class="needs-validation" method='post'  action="{% url 'checkoutform'%}" novalidate>
+          {% csrf_token %}
+            <p class="content-block-title delivery-v2-title">
+            <span class="content-block-title-text"> Deliver to: <span> {{shipping.first_name}} {{shipping.last_name}} </span></span> 
+            </p>
+              <div class="address-content"> 
+                
+                    <span id="address-tag" class="address-tag">{{shipping.get_title_display}} </span>  
+                    <span id="address-phone" > {{shipping.phone}}</span> 
+                    <span class="vertical-line"></span>
+                    <span id="address-line" > {{shipping.address_line_1|truncatewords:30}}</span> 
+                    <span id="og-addresses" data-toggle="modal" data-target="#AddressModalCenter" class="action-edit" >Change</span>
+                  
+              </div>
+              
+              <div id="og-billing-content">
+                
+              {% if billing.id == shipping.id %}
+              
+                <p >Bill to the same address <span data-toggle="modal" data-target="#AddressModalCenter"   class="action-edit" >Edit</span></p>
+              {% elif billing.bill_default == True %}
+                <p  >Bill to default billing address <span data-toggle="modal" data-target="#AddressModalCenter"  class="action-edit" >Edit</span></p>
+              {% else %}
+              <p > {{billing.address_line_1|truncatewords:30}} <span data-toggle="modal" data-target="#AddressModalCenter"  class="action-edit" >Edit</span></p>
+             
+              {% endif %}         
+              {% else %}
+                <div id="og-new-address" class="p-2 m-3"  data-toggle="modal" data-target="#addressModalCenter" >
+                    <span>
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                      Add New Address
+                    </span>
+                </div>  
+            {% endif %}
+          </div>

@@ -1,0 +1,448 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% block 'title'%}
+Shop 
+{% endblock %}
+
+{%block 'shopactive'%}
+active
+{%endblock%}
+{% block 'stylefiles'%}
+
+{% endblock %}
+    
+
+{% block 'customcss'%}
+.category-list {
+    list-style: none;
+    padding: 0;
+
+
+}
+.category-item {
+       
+    position: relative;
+    margin-right: 15px;
+   
+}
+.sub-category-list,
+.sub-sub-category-list {
+    display:none;
+    position: relative;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    transition:all 3s ease-in-out;
+    transition-delay: 0.1s;
+    }
+
+.category-item:hover .sub-category-list,
+.sub-category-item:hover .sub-sub-category-list {
+    display: block;    
+}
+{% endblock %}
+
+
+{% include 'header.html'%}
+
+{% block 'content'%}
+    <!-- Hero Section Begin -->
+    {% include 'hero.html'%}
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="{% static 'img/breadcrumb.jpg' %}' %}" style="background-image: url({% static 'img/breadcrumb.jpg' %});">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Organi Shop</h2>
+                        <div class="breadcrumb__option">
+                            <a href="{%url 'home'%}">Home</a>
+                            <span>Shop</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-5">
+                    <div class="sidebar">
+                        <!-- <div class="sidebar__item">
+                            <h4>Department</h4>
+                            <ul>
+                                <li><a href="#">Fresh Meat</a></li>
+                                <li><a href="#">Vegetables</a></li>
+                                <li><a href="#">Fruit & Nut Gifts</a></li>
+                                <li><a href="#">Fresh Berries</a></li>
+                                <li><a href="#">Ocean Foods</a></li>
+                                <li><a href="#">Butter & Eggs</a></li>
+                                <li><a href="#">Fastfood</a></li>
+                                <li><a href="#">Fresh Onion</a></li>
+                                <li><a href="#">Papayaya & Crisps</a></li>
+                                <li><a href="#">Oatmeal</a></li>
+                            </ul>
+                        </div> -->
+                        <div class="sidebar__item">
+                            <h4>Price</h4>
+                            <div class="price-range-wrap">
+                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                                    data-min="10" data-max="540">
+                                    <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                </div>
+                                <div class="range-slider">
+                                    <div class="price-input">
+                                        <input type="text" id="minamount">
+                                        <input type="text" id="maxamount">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="sidebar__item sidebar__item__color--option">
+                            <h4>Colors</h4>
+                            <div class="sidebar__item__color sidebar__item__color--white">
+                                <label for="white">
+                                    White
+                                    <input type="radio" id="white">
+                                </label>
+                            </div>
+                            <div class="sidebar__item__color sidebar__item__color--gray">
+                                <label for="gray">
+                                    Gray
+                                    <input type="radio" id="gray">
+                                </label>
+                            </div>
+                            <div class="sidebar__item__color sidebar__item__color--red">
+                                <label for="red">
+                                    Red
+                                    <input type="radio" id="red">
+                                </label>
+                            </div>
+                            <div class="sidebar__item__color sidebar__item__color--black">
+                                <label for="black">
+                                    Black
+                                    <input type="radio" id="black">
+                                </label>
+                            </div>
+                            <div class="sidebar__item__color sidebar__item__color--blue">
+                                <label for="blue">
+                                    Blue
+                                    <input type="radio" id="blue">
+                                </label>
+                            </div>
+                            <div class="sidebar__item__color sidebar__item__color--green">
+                                <label for="green">
+                                    Green
+                                    <input type="radio" id="green">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="sidebar__item">
+                            <h4>Popular Size</h4>
+                            <div class="sidebar__item__size">
+                                <label for="large">
+                                    Large
+                                    <input type="radio" id="large">
+                                </label>
+                            </div>
+                            <div class="sidebar__item__size">
+                                <label for="medium">
+                                    Medium
+                                    <input type="radio" id="medium">
+                                </label>
+                            </div>
+                            <div class="sidebar__item__size">
+                                <label for="small">
+                                    Small
+                                    <input type="radio" id="small">
+                                </label>
+                            </div>
+                            <div class="sidebar__item__size">
+                                <label for="tiny">
+                                    Tiny
+                                    <input type="radio" id="tiny">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="sidebar__item">
+                            <div class="latest-product__text">
+                                <h4>Latest Products</h4>
+                                <div class="latest-product__slider owl-carousel">
+                                    <div class="latest-prdouct__slider__item">
+                                        {% for late_p  in latest_products %}
+                                        <a href="{{late_p.get_absolute_url}}" class="latest-product__item">
+                                            <div class="latest-product__item__pic">
+                                                <img src="{{late_p.image.url}}" alt="">
+                                            </div>
+                                            <div class="latest-product__item__text">
+                                                <h6>{{late_p.title}}</h6>
+                                                <span>${{late_p.price}}</span>
+                                            </div>
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-7">
+                    <div class="product__discount">
+                        <div class="section-title product__discount__title">
+                            <h2>Sale Off</h2>
+                        </div>
+                        <div class="row">
+                            <div class="product__discount__slider owl-carousel">
+                                {% for pro in sale_products %}
+                                {%if pro.init_variant.sale_percent > 0 %}
+                                <!-- {{pro.init_variant}} -->
+                                <div class="col-lg-4">
+                                    <div class="product__discount__item">
+                                        <div class="product__discount__item__pic set-bg"
+                                            data-setbg="{{pro.img}}">
+                                            <div class="product__discount__percent">-{{pro.init_variant.sale_percent|floatformat:0}}%</div>
+                                            <ul class="product__item__pic__hover">
+                                                <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="{{ pro.get_absolute_url}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__discount__item__text">
+                                            <span>{{pro.category.title}}{{pro.init_variant.wishlist_chk}}</span>
+                                            <h5><a href="{{ pro.get_absolute_url}}">{{pro.title}}</a></h5>
+                                            <div class="product__item__price">${{pro.init_variant.sale_price}}
+                                                <span>${{pro.init_variant.retail_price}}</span>
+                                            
+                                              
+                                          
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% endfor %}
+                                {% comment %} <div class="col-lg-4">
+                                    <div class="product__discount__item">
+                                        <div class="product__discount__item__pic set-bg"
+                                            data-setbg="{% static 'img/product/discount/pd-2.jpg' %}">
+                                            <div class="product__discount__percent">-20%</div>
+                                            <ul class="product__item__pic__hover">
+                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__discount__item__text">
+                                            <span>Vegetables</span>
+                                            <h5><a href="#">Vegetables’package</a></h5>
+                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product__discount__item">
+                                        <div class="product__discount__item__pic set-bg"
+                                            data-setbg="{% static 'img/product/discount/pd-3.jpg' %}">
+                                            <div class="product__discount__percent">-20%</div>
+                                            <ul class="product__item__pic__hover">
+                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__discount__item__text">
+                                            <span>Dried Fruit</span>
+                                            <h5><a href="#">Mixed Fruitss</a></h5>
+                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product__discount__item">
+                                        <div class="product__discount__item__pic set-bg"
+                                            data-setbg="{% static 'img/product/discount/pd-4.jpg' %}">
+                                            <div class="product__discount__percent">-20%</div>
+                                            <ul class="product__item__pic__hover">
+                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__discount__item__text">
+                                            <span>Dried Fruit</span>
+                                            <h5><a href="#">Raisin’n’nuts</a></h5>
+                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product__discount__item">
+                                        <div class="product__discount__item__pic set-bg"
+                                            data-setbg="{% static 'img/product/discount/pd-5.jpg' %}">
+                                            <div class="product__discount__percent">-20%</div>
+                                            <ul class="product__item__pic__hover">
+                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__discount__item__text">
+                                            <span>Dried Fruit</span>
+                                            <h5><a href="#">Raisin’n’nuts</a></h5>
+                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product__discount__item">
+                                        <div class="product__discount__item__pic set-bg"
+                                            data-setbg="{% static 'img/product/discount/pd-6.jpg' %}">
+                                            <div class="product__discount__percent">-20%</div>
+                                            <ul class="product__item__pic__hover">
+                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__discount__item__text">
+                                            <span>Dried Fruit</span>
+                                            <h5><a href="#">Raisin’n’nuts</a></h5>
+                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
+                                        </div>
+                                    </div>
+                                </div> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter__item">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="filter__sort">
+                                    {% csrf_token %}
+                                    <span>Sort By</span>
+                                    <select id="product_by_sort">
+                                        <option value="Default">Default</option>
+                                        <option value="New_listed">Newly Listed</option>
+                                        <option value="Lowest_price">Lowest Price</option>
+                                        <option value="Highest_price">Highest Price</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="filter__found">
+                                    <h6><span>{{products.count}}</span> Products found</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-3">
+                                <div class="filter__option">
+                                    <span class="icon_grid-2x2"></span>
+                                    <span class="icon_ul"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="shop_product_list" class="row">
+                        
+                        {% for pro in products %}
+               
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__discount__item__pic set-bg" data-setbg="">
+                                <a href="{{ pro.get_absolute_url}}"><img src="{{pro.img}}" alt=""></a>
+                                <!-- <a href="{{ pro.get_absolute_url}}"><img src="{{pro.img}}" alt=""></a> -->
+                                {%if pro.init_variant.sale_percent > 0 %}
+                           
+                                <div class="product__discount__percent">-{{pro.init_variant.sale_percent|floatformat:0}}%</div>    
+                                {% endif %}
+                                <ul class="product__item__pic__hover">
+                                        <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                        <li><a href="{{ pro.get_absolute_url}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                {%if pro.init_variant.sale_percent > 0 %}
+                           
+                                <div class="product__discount__item__text">
+                                    <!-- <span>{{pro.category.title}}</span> -->
+                                    <h5><a href="{{pro.get_absolute_url}}">{{pro.title|truncatechars:65}}</a></h5>
+                                    <div class="product__item__price">${{pro.init_variant.sale_price}}
+                                        <span>${{pro.init_variant.retail_price}}</span>
+                                    
+                                      
+                                  
+                                    </div>
+                                </div>
+                                {%else%}
+                                <div class="product__item__text">
+                                    <!-- <span>{{pro.category.title}}</span> -->
+                                  <h6><a href="{{pro.get_absolute_url}}"> {{pro.title|truncatechars:65 }} </a></h6>
+                                    <h5> {{pro.init_variant.retail_price}} </h5>
+                                    
+                                    
+                                </div>
+                                {%endif%}
+                            </div>
+                        </div>
+                        {% endfor %}
+                     
+                       
+                    </div>
+                    <div class="product__pagination">
+                        {% if products.has_previous%}
+
+                        <a href="?page={{products.previous_page_number}}"><i class="fa fa-long-arrow-left"></i></a>
+                        {% endif %}
+                        {% for pg in product_pages_list  %}
+                        <!-- <a href="#">{{ pg.paginator.num_pages }}</a> -->
+                        <a href="?page={{ pg }}">{{ pg }}</a>
+                        {% endfor %}
+
+                        
+                        <!-- <a href="#">2</a>
+                        <a href="#">3</a> -->
+                        {% if products.has_next%}
+                        <a href="?page={{products.next_page_number}}"><i class="fa fa-long-arrow-right"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
+
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    {% block 'scripts'%}
+    <script>
+    $(document).ready(function() {
+       
+        $("#product_by_sort").change(function() {
+        var open = $(this).val();
+      
+        $.get("../store/sorted/"+open+"", function(data, status){
+            $('#shop_product_list').html(data);
+          });
+         
+        });
+       
+    });
+ 
+    </script>
+        
+    {% endblock %}
+  
+
+
+{% endblock %}
+
